@@ -1,0 +1,50 @@
+<main>
+  <form class="formulario" [formGroup]="updateForm" (ngSubmit)="handleSubmit()">
+    <h2>Actualizar Usuario</h2>
+
+    <div class="mb-3">
+      <label>Nombre completo</label>
+      <input type="text" class="form-control" formControlName="name" />
+    </div>
+
+    <div class="mb-3">
+      <label>Username</label>
+      <input type="text" class="form-control" formControlName="username" />
+    </div>
+
+    <div class="mb-3">
+      <label>Correo electrónico</label>
+      <input type="email" class="form-control" formControlName="email" />
+    </div>
+
+    <div class="mb-3">
+      <label>Edad</label>
+      <input type="number" class="form-control" formControlName="age" />
+    </div>
+
+    <div class="mb-3">
+      <label>Código de empleado</label>
+      <input type="number" class="form-control" formControlName="codigoempleado" />
+    </div>
+
+    <div class="mb-3">
+      <label>Código de departamento</label>
+      <input type="number" class="form-control" formControlName="codigodepartamento" />
+    </div>
+
+    <div class="mb-3">
+      <label>Contraseña</label>
+      <input type="password" class="form-control" formControlName="password" />
+    </div>
+
+    <div class="mb-3">
+      <label>Rol</label>
+      <select class="form-control" formControlName="role">
+        <option value="user">Usuario</option>
+        <option value="admin">Administrador</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+  </form>
+</main>
