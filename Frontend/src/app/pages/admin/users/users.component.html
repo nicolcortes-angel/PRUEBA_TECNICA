@@ -5,15 +5,26 @@
   @for (user of allUsers; track $index) {
     <div class="usuariod">
       <h2>{{ user.name }}</h2>
-      <p>{{ user.username }}</p>
-      <p>{{ user.email }}</p>
+      <p><strong>Usuario:</strong> {{ user.username }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Rol:</strong> {{ user.role }}</p>
 
-     
-      <button class="btn btn-danger" (click)="deleteUser(user._id)">Eliminar</button>
+      <div class="d-flex gap-2 mt-3">
+        <button class="btn btn-primary" (click)="updateUsersInfo(user._id)">
+          Editar
+        </button>
+
+        <button class="btn btn-danger" (click)="deleteUser(user._id)">
+          Eliminar
+        </button>
+      </div>
 
       <!-- 🔸 Formulario solo aparece para el usuario seleccionado -->
       @if (showUpdateForm && selectedUserId === user._id) {
-        <app-updateformuser [userId]="selectedUserId"></app-updateformuser>
+        <app-updateformuser
+          [userId]="selectedUserId"
+          (close)="closeUpdateForm()">
+        </app-updateformuser>
       }
     </div>
   }

@@ -13,4 +13,4 @@ userRouter.post("/crear", upload.none(), postUser);
 userRouter.get("/mostrar", auth("admin"), getAllUsers);
 userRouter.get("/mostrar/:id", getUserById);
 userRouter.put("/actualizar/:id", putUserById);
-userRouter.delete("/eliminar/:id", deleteUserById);
+userRouter.delete("/eliminar/:id",auth("admin"), deleteUserById);
