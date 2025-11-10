@@ -24,10 +24,10 @@ export const login = async (request, response) => {
     const validPassword = await bcryptjs.compare(passwordLogin, userFound.password);
  
       if(!validPassword){
-        return response.status(401).json({
-            "mensaje": "contraseña correcta "
-        });
-    }
+        return response.status(401).json({
+            "mensaje": "Contraseña incorrecta." // Corregido: Debe decir incorrecta
+        });
+    }
 
     // generacion de token  
     const payload = {
@@ -45,10 +45,10 @@ export const login = async (request, response) => {
     console.log("payload : ", payload);
     console.log("token", token);
 
-    return response.satatus(200).json({
-        "mensaje" : "Usuario ok y exitoso",
-        "token" : token
-    })
+    return response.status(200).json({
+        "mensaje" : "Usuario ok y exitoso",
+        "token" : token
+    })
 
  } catch (error){ 
     return response.status(401).json({
