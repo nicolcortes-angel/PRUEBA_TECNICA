@@ -1,0 +1,28 @@
+@import url('https://fonts.cdnfonts.com/css/poppins');
+
+/* 🎨 Variables de CSS */
+:root {
+  --primary-color: #7EC8E3; /* azul pastel suave */
+  --secondary-color: #A1DFFB; /* azul cielo */
+  --light-background: #E8F6FA; /* fondo muy claro */
+  --white: #FFFFFF;
+  --text-dark: #2A3D45; /* azul gris oscuro */
+  --text-light: #6C8A93; /* gris azulado claro */
+
+  --gradient-primary: linear-gradient(135deg, #7EC8E3 0%, #A1DFFB 100%);
+  --gradient-secondary: linear-gradient(135deg, #A1DFFB 0%, #C4F1F9 100%);
+  --gradient-hero: linear-gradient(135deg, rgba(126, 200, 227, 0.9) 0%, rgba(161, 223, 251, 0.9) 100%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--light-background);
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-dark);
+  overflow-x: hidden;
+}

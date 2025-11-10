@@ -1,0 +1,24 @@
+.footer{
+    width: 100vw;
+    height: 150px;
+    background-color: var(--primary-color);
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-dark);
+    gap: 30px;
+}
+
+.redes-sociales{
+    display: flex;
+    gap: 20px;
+}
+
+.redes-sociales i{
+    font-size: larger;
+    color: var(--text-dark);
+    transition: color 0.3s;
+}

@@ -1,0 +1,31 @@
+
+<main>
+
+<form class="formulario" [formGroup]="LoginForm" (ngSubmit)="handleSubmit()">
+    <h1>INICIO DE SECCION</h1>
+  
+    <div class="mb-3">
+    <label class="form-label">Correo</label>
+    <input type="email" class="form-control" formControlName="emailLogin" autocomplete="username">
+    
+
+    <label class="form-label">Contraseña</label>
+    <input type="password" class="form-control" formControlName="passwordLogin" autocomplete="current-password">
+  </div>
+
+
+  <button type="submit" class="btn btn-primary">Inicia Sesion</button>
+</form>
+
+
+</main>
+
+
+
+
+
+
+
+
+
+

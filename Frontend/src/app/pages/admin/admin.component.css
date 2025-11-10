@@ -1,0 +1,16 @@
+.contenedor-nav {
+    background: #91b7dd;
+    padding: 10px;
+    color: thistle;
+    width: 300px;
+}
+
+.nav-link.active {
+    background-color: #91b7dd;
+    color: white;
+    border-radius: 20px;
+}
+
+.cierre {
+    cursor: pointer;
+}

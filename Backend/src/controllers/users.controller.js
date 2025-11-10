@@ -1,93 +1,112 @@
 import { userModel } from "../models/users.model.js";
-import bcrypt from "bcryptjs";
+import bcryptjs from "bcryptjs";
 
-// 1. Método para CREAR un usuario -> POST
+// 1. Crear un usuario (POST)
 export const postUser = async (request, response) => {
-    //acá va la lógica de la peticion
-    try {
-        // destructuracion cuando se hace - procesar la informacion del usuario antes de guardarla
-        const {name, username, email, age, password, role} = request.body;
-        
-        //.hash = encripta la contraseña  
-        const codedPassword = await bcrypt.hash(password, 10)
+  try {
+    // Encriptar la contraseña recibida
+    const codedPassword = await bcryptjs.hash(request.body.password, 10);
 
-        await userModel.create(
-            {
-                name,
-                username,
-                email,
-                age,
-                password: codedPassword,
-                role
-            }
-        ); 
+    // Crear el nuevo usuario con la contraseña encriptada
+    const newUser = {
+      ...request.body,
+      password: codedPassword,
+      role: "user", // valor por defecto
+    };
 
- return response.status(201).json({
-    "mensaje": "Usuario creados correctamente"
- });
+    await userModel.create(newUser);
 
-    } catch (error) {
-        return response.status(400).json({
-            "mensaje": "Ocurrió un error al crear producto",
-            "error": error.message || error //alt + 124 o  alt gr + 1
-        })
+    return response.status(201).json({
+      mensaje: "Usuario creado correctamente",
+    });
+  } catch (error) {
+    return response.status(400).json({
+      mensaje: "Ocurrió un error al crear el usuario",
+      error: error.message || error,
+    });
+  }
+};
 
-        
-    }
-}
-
-// 2. Método para MOSTRAR todos los usuarios -> GET
+// 2. Obtener todos los usuarios (GET)
 export const getAllUsers = async (request, response) => {
-     try {
-        const allUsers = await userModel.find();
+  try {
+    const allUsers = await userModel.find().select("-password");
+    return response.status(200).json({
+      mensaje: "Petición exitosa",
+      data: allUsers,
+    });
+  } catch (error) {
+    return response.status(400).json({
+      mensaje: "Ocurrió un error al mostrar los usuarios",
+      error: error.message || error,
+    });
+  }
+};
 
-        return response.status(200).json({
-            "mensaje": "Petición exitosa",
-            "data": allUsers
-        })
+// 2.1 Obtener un usuario por ID (GET)
+export const getUserById = async (request, response) => {
+  try {
+    const idForSearch = request.params.id;
+    const userById = await userModel.findById(idForSearch).select("-password");
+    return response.status(200).json({
+      mensaje: "Petición exitosa",
+      data: userById,
+    });
+  } catch (error) {
+    return response.status(400).json({
+      mensaje: "Ocurrió un error al mostrar el usuario",
+      error: error.message || error,
+    });
+  }
+};
 
-    } catch (error) {
-        return response.status(500).json({
-            "mensaje": "Ocurrió un error al mostrar usuarios",
-            "error": error.message || error
-        })
-    }
-}
-
-// 3. Método para ACTUALIZAR un usuario -> PUT
+// 3. Actualizar un usuario por ID (PUT)
 export const putUserById = async (request, response) => {
-    try {
-        const idForUpdate = request.params.id;
-        const dataForUpdate = request.body;
+  try {
+    const idForUpdate = request.params.id;
 
-        await userModel.findByIdAndUpdate(idForUpdate, dataForUpdate);
-
-        return response.status(200).json({
-            "mensaje": "Usuaerio actualizado exitosamente"
-        });
-
-    } catch (error) {
-        return response.status(500).json({
-            "mensaje": "Ocurrió un error al actualizar usuario",
-            "error": error.message || error
-        })
+    // Encriptar contraseña si se envió
+    let codedPassword;
+    if (request.body.password) {
+      codedPassword = await bcryptjs.hash(request.body.password, 10);
     }
-}
 
-// 4. Método para ELIMINAR un usuario -> DELETE
+    // Crear objeto actualizado
+    const updatedUser = {
+      ...request.body,
+      password: codedPassword,
+    };
+
+    // Eliminar campos undefined
+    Object.keys(updatedUser).forEach(
+      (key) => updatedUser[key] === undefined && delete updatedUser[key]
+    );
+
+    await userModel.findByIdAndUpdate(idForUpdate, updatedUser);
+
+    return response.status(200).json({
+      mensaje: "Usuario actualizado correctamente",
+    });
+  } catch (error) {
+    return response.status(400).json({
+      mensaje: "Ocurrió un error al actualizar el usuario",
+      error: error.message || error,
+    });
+  }
+};
+
+// 4. Eliminar un usuario por ID (DELETE)
 export const deleteUserById = async (request, response) => {
-    try {
-        const idForDelete = request.params.id;
-        await userModel.findByIdAndDelete(idForDelete);
-
-        return response.status(200).json({
-            "mensaje": "Usuaario eliminado exitosamente"
-        });
-
-    } catch (error) {
-        return response.status(500).json({
-            "mensaje": "Ocurrió un error al eliminar Usuaario",
-            "error": error.message || error
-        })
-    }
-}
+  try {
+    const idForDelete = request.params.id;
+    await userModel.findByIdAndDelete(idForDelete);
+    return response.status(200).json({
+      mensaje: "Usuario eliminado correctamente",
+    });
+  } catch (error) {
+    return response.status(400).json({
+      mensaje: "Ocurrió un error al eliminar el usuario",
+      error: error.message || error,
+    });
+  }
+};

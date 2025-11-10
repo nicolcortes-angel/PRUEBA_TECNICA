@@ -1,0 +1,12 @@
+main {  
+  
+     width: 100uv;
+     height: 100vh;
+   
+}
+
+.formulario {  
+    border: solid 1px rgb(0, 153, 255);
+    width: 300px;
+    margin: 200px auto;
+}

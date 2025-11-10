@@ -1,0 +1,22 @@
+main {  
+  
+     width: 100uv;
+     height: 100vh;
+   
+}
+
+.formulario {  
+    border: solid 1px rgb(0, 153, 255);
+    width: 300px;
+    margin: 200px auto;
+}
+
+.btn {  
+    background-color: blue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}

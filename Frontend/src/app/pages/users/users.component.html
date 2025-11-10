@@ -1,0 +1,16 @@
+<h1>GESTIÓN DE USUARIOS</h1>
+
+<div class="container border border-black d-flex flex-wrap gap-5 p-4">
+    @for (user of allusers; track $index) {
+    <div>
+        <h2 class="fa-bold">{{user.name}}</h2>
+        <p>{{user.username}}</p>
+        <p>{{user.email}}</p>
+
+        <div class="d-flex gap-4">
+            <button class="btn btn-info">Actualizar</button>
+            <button class="btn btn-danger">Eliminar</button>
+        </div>
+    </div>
+    }
+</div>
